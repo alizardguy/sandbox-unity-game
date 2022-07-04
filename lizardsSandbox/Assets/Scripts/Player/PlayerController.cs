@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,11 +21,37 @@ public class PlayerController : MonoBehaviour
     bool _isPlayerGrounded = false;
     CharacterController controller = null;
 
+    //input binding stuff
+    public BasicControl playerControl;
+    private InputAction move;
+
+
+
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
 
     Vector2 currentMouseDelta = Vector2.zero;
     Vector2 currentMouseDeltaVelocity = Vector2.zero;
+
+    //on Enable
+    private void OnEnable()
+    {
+        move = playerControl.Player.Movement;
+        move.Enable();
+        Debug.Log("player controls enabled");
+    }
+
+    //on Disable
+    private void OnDisable()
+    {
+        playerControl.Disable();
+        move.Disable();
+    }
+
+    private void Awake()
+    {
+        playerControl = new BasicControl();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +62,15 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-        }    
+        }
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateMouseLook(); 
+        //UpdateMouseLook(); 
         UpdateMovement();
     }
 
@@ -63,7 +93,8 @@ public class PlayerController : MonoBehaviour
     // Movment update void
     void UpdateMovement()
     {
-        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //input direction value (hopefully this is the modern binding system)
+        //Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //input direction value (hopefully this is the modern binding system)
+        Vector2 targetDir = move.ReadValue<Vector2>();
         targetDir.Normalize();
 
         currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
