@@ -241,7 +241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8633911693108249078, guid: 056b962feb7ee7643ba6740470b60225, type: 3}
       propertyPath: playerControl.m_SingletonActionBindings.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8633911693108249078, guid: 056b962feb7ee7643ba6740470b60225, type: 3}
       propertyPath: playerControl.m_SingletonActionBindings.Array.data[0].m_Id

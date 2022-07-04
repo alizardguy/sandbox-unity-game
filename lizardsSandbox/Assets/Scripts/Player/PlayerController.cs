@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour
 {
     //Vars and fields
     [SerializeField] Transform playerCamera;
-    [SerializeField] float mouseSensitivity = 3.5f;
+    [SerializeField][Range(0.001f, 4f)] float mouseSensitivity = 0.13f;
     [SerializeField] float walkSpeed = 6;
     [SerializeField] float gravity = -13.0f;
     [SerializeField][Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
-    [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
 
     [SerializeField] bool lockCursor = true;
 
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     //input binding stuff
     public BasicControl playerControl;
     private InputAction move;
+    private InputAction look;
 
 
 
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
     {
         move = playerControl.Player.Movement;
         move.Enable();
+        look = playerControl.Player.look;
+        look.Enable();
         Debug.Log("player controls enabled");
     }
 
@@ -70,14 +73,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UpdateMouseLook(); 
+        UpdateMouseLook(); 
         UpdateMovement();
     }
 
     // Called by update void
     void UpdateMouseLook()
     {
-        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 targetMouseDelta = look.ReadValue<Vector2>();
+        Debug.Log(targetMouseDelta);
 
         currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
 
