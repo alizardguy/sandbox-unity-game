@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     float cameraPitch = 0.0f;
     float velocityY = 0.0f;
+    bool _isPlayerGrounded = false;
     CharacterController controller = null;
 
     Vector2 currentDir = Vector2.zero;
@@ -70,6 +71,11 @@ public class PlayerController : MonoBehaviour
         if (controller.isGrounded)
         {
             velocityY = 0.0f;
+            _isPlayerGrounded = true;
+        }
+        else
+        {
+            _isPlayerGrounded = false;
         }
 
         velocityY += gravity * Time.deltaTime; //apply gravity
