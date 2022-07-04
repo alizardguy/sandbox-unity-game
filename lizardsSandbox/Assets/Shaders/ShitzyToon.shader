@@ -6,6 +6,7 @@ Shader "Unlit/SimplyToon"
 		_Brightness("Brightness", Range(0,1)) = 0.3
 		_Strength("Strength", Range(0,1)) = 0.5
 		_Color("Main Color", COLOR) = (1,1,1,1)
+		_Detail("Detail", Range(0,1)) = 0.3
     }
     SubShader
     {
@@ -39,11 +40,12 @@ Shader "Unlit/SimplyToon"
 			float _Brightness;
 			float _Strength;
 			float4 _Color;
+			float _Detail;
 
 			float Toon(float3 normal, float3 lightDir) {
 				float NdotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
 
-				return floor(NdotL/0.3);
+				return floor(NdotL/_Detail);
 			}
 
             v2f vert (appdata v)
