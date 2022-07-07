@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class hideUI_in_editor_hotfix : MonoBehaviour
 {
+    [SerializeField] private GameObject self;
+
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(true);    
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        self.SetActive(true);
     }
 }
