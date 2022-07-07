@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
 
     float cameraPitch = 0.0f;
     float velocityY = 0.0f;
-    bool _isPlayerGrounded = false;
     CharacterController controller = null;
 
     //input binding stuff
@@ -26,15 +25,12 @@ public class PlayerController : MonoBehaviour
     private InputAction move;
     private InputAction look;
 
-
-
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
 
     Vector2 currentMouseDelta = Vector2.zero;
     Vector2 currentMouseDeltaVelocity = Vector2.zero;
 
-    //on Enable
     private void OnEnable()
     {
         move = playerControl.Player.Movement;
@@ -44,11 +40,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("player controls enabled");
     }
 
-    //on Disable
     private void OnDisable()
     {
         playerControl.Disable();
         move.Disable();
+        Debug.Log("player controls disabled");
     }
 
     private void Awake()
@@ -56,7 +52,6 @@ public class PlayerController : MonoBehaviour
         playerControl = new BasicControl();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>(); //get character controller off the slot
@@ -70,14 +65,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateMouseLook(); 
         UpdateMovement();
     }
 
-    // Called by update void
     void UpdateMouseLook()
     {
         Vector2 targetMouseDelta = look.ReadValue<Vector2>();
@@ -93,10 +86,8 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity); //affects the object the script is on (the player root slot)
     }
 
-    // Movment update void
     void UpdateMovement()
     {
-        //Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //input direction value (hopefully this is the modern binding system)
         Vector2 targetDir = move.ReadValue<Vector2>();
         targetDir.Normalize();
 
@@ -105,11 +96,6 @@ public class PlayerController : MonoBehaviour
         if (controller.isGrounded)
         {
             velocityY = 0.0f;
-            _isPlayerGrounded = true;
-        }
-        else
-        {
-            _isPlayerGrounded = false;
         }
 
         velocityY += gravity * Time.deltaTime; //apply gravity
