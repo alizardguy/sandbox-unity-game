@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
     void UpdateMouseLook()
     {
         Vector2 targetMouseDelta = look.ReadValue<Vector2>();
-        Debug.Log(targetMouseDelta);
 
         currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
 
