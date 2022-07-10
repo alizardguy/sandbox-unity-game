@@ -65,11 +65,11 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Backpack"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""bb851a54-a960-4389-a024-0484b1085e40"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": true
                 }
             ],

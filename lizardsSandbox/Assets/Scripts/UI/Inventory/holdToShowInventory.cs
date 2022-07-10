@@ -35,14 +35,17 @@ public class holdToShowInventory : MonoBehaviour
 
     void checkForHold()
     {
-        if (Backpack.ReadValue<float>() > 0.5f)
+        if (Backpack.triggered)
         {
-            print("feet");
-        }
-        else
-        {
-            print("no feet");
-        }
+            if(backpackUI.activeSelf)
+            {
+                backpackUI.SetActive(false);
+            }
+            else
+            {
+                backpackUI.SetActive(true);
+            }
+        }     
 
     }
 }
