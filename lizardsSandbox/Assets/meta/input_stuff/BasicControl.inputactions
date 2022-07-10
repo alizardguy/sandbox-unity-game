@@ -42,13 +42,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Menu",
-                    "type": "Button",
+                    "name": "Backpack",
+                    "type": "Value",
                     "id": "bb851a54-a960-4389-a024-0484b1085e40",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -147,7 +147,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Menu",
+                    "action": "Backpack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

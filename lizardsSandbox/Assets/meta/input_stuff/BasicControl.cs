@@ -64,13 +64,13 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Menu"",
-                    ""type"": ""Button"",
+                    ""name"": ""Backpack"",
+                    ""type"": ""Value"",
                     ""id"": ""bb851a54-a960-4389-a024-0484b1085e40"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -169,7 +169,7 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Menu"",
+                    ""action"": ""Backpack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -184,7 +184,7 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_look = m_Player.FindAction("look", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        m_Player_Backpack = m_Player.FindAction("Backpack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -248,7 +248,7 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_look;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_Menu;
+    private readonly InputAction m_Player_Backpack;
     public struct PlayerActions
     {
         private @BasicControl m_Wrapper;
@@ -257,7 +257,7 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @look => m_Wrapper.m_Player_look;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @Menu => m_Wrapper.m_Player_Menu;
+        public InputAction @Backpack => m_Wrapper.m_Player_Backpack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -279,9 +279,9 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
-                @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @Backpack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackpack;
+                @Backpack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackpack;
+                @Backpack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackpack;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -298,9 +298,9 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @Menu.started += instance.OnMenu;
-                @Menu.performed += instance.OnMenu;
-                @Menu.canceled += instance.OnMenu;
+                @Backpack.started += instance.OnBackpack;
+                @Backpack.performed += instance.OnBackpack;
+                @Backpack.canceled += instance.OnBackpack;
             }
         }
     }
@@ -311,6 +311,6 @@ public partial class @BasicControl : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnMenu(InputAction.CallbackContext context);
+        void OnBackpack(InputAction.CallbackContext context);
     }
 }
